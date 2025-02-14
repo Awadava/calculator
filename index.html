@@ -2,191 +2,106 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Калькулятор жаропонижающих</title>
+    <title>Калькулятор арбитражных ставок с кэшбэком</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #66CCFF, #FF99CC); /* Голубой и розовый */
-            color: #333;
-            margin: 0;
-            padding: 20px;
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
         }
-
         h1 {
-            color: #FFFFFF;
-            text-align: center;
-            font-size: 28px;
-            letter-spacing: 1px;
+            color: #333;
         }
-
-        .container {
-            max-width: 420px;
-            margin: 0 auto;
-            padding: 30px;
-            background-color: #FFFFFF;
-            border-radius: 15px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-        }
-
         label {
             display: block;
-            margin-top: 15px;
-            font-weight: bold;
-            color: #333;
+            margin-top: 10px;
         }
-
-        input, select {
-            width: 100%;
-            padding: 12px;
-            margin-top: 5px;
-            border: 2px solid #33CC33; /* Зеленый */
-            border-radius: 10px;
-            box-sizing: border-box;
-            background-color: #F9F9F9;
-            color: #333;
+        input {
+            padding: 5px;
+            width: 200px;
         }
-
         button {
-            width: 100%;
-            padding: 12px;
-            background-color: #FFFF66; /* Желтый */
-            color: white;
-            border: none;
-            border-radius: 10px;
-            margin-top: 20px;
-            cursor: pointer;
+            margin-top: 15px;
+            padding: 8px 16px;
             font-size: 16px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
-
-        button:hover {
-            background-color: #FFCC66;
-        }
-
         .result {
             margin-top: 20px;
-            padding: 20px;
-            background-color: #F0F0F0;
-            border-radius: 10px;
-            border: 2px solid #FFE0B2;
-        }
-
-        .warning {
-            margin-top: 15px;
-            font-size: 13px;
-            color: rgba(0, 0, 0, 0.5);
-            text-align: center;
-            font-style: italic;
-        }
-
-        .dr-label {
-            position: fixed;
-            top: 15px;
-            right: 30px;
-            font-size: 18px;
-            font-weight: bold;
-            color: #FF8C42;
+            padding: 15px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            width: 320px;
         }
     </style>
 </head>
 <body>
-    <div class="dr-label">Dr. Avanesov</div>
+    <h1>Калькулятор арбитражных ставок с кэшбэком</h1>
+    <p>Введите общую сумму для ставок и коэффициенты для двух исходов:</p>
     
-    <div class="container">
-        <h1>Калькулятор жаропонижающих</h1>
-
-        <label for="weight">Вес ребенка (кг):</label>
-        <input type="number" id="weight" placeholder="Введите вес" min="0">
-
-        <label for="paracetamol-form">Форма парацетамола:</label>
-        <select id="paracetamol-form">
-            <option value="syrup">Сироп (120 мг/5 мл)</option>
-            <option value="suppository">Суппозитории (100 мг, 250 мг)</option>
-        </select>
-
-        <label for="ibuprofen-form">Форма ибупрофена:</label>
-        <select id="ibuprofen-form">
-            <option value="syrup">Сироп (100 мг/5 мл)</option>
-            <option value="suppository">Суппозитории (60 мг, 125 мг)</option>
-        </select>
-
-        <button onclick="calculate()">Рассчитать дозировку</button>
-
-        <div class="result" id="result"></div>
-
-        <div class="warning">
-            <p>Имеются противопоказания. Перед приемом, проконсультируйтесь со специалистом.</p>
-        </div>
-
-        <script>
-            function calculate() {
-                let weight = document.getElementById('weight').value;
-                if (!weight || weight <= 0) {
-                    alert('Пожалуйста, введите корректный вес.');
-                    return;
-                }
-
-                let paracetamolForm = document.getElementById('paracetamol-form').value;
-                let ibuprofenForm = document.getElementById('ibuprofen-form').value;
-
-                let paracetamol_dose = (15 * weight).toFixed(2);
-                let ibuprofen_dose = (10 * weight).toFixed(2);
-
-                let paracetamol_result;
-                if (paracetamolForm === 'syrup') {
-                    paracetamol_result = `Парацетамол (сироп): ${(paracetamol_dose / 24).toFixed(2)} мл`;
-                } else if (paracetamolForm === 'suppository') {
-                    if (paracetamol_dose <= 100) {
-                        paracetamol_result = `Парацетамол (суппозитории): 1 суппозиторий по 100 мг`;
-                    } else if (paracetamol_dose <= 250) {
-                        paracetamol_result = `Парацетамол (суппозитории): 1 суппозиторий по 250 мг`;
-                    } else {
-                        paracetamol_result = `Парацетамол (суппозитории): ${(paracetamol_dose / 250).toFixed(2)} суппозитория(ев) по 250 мг`;
-                    }
-                }
-
-                let ibuprofen_result;
-                if (ibuprofenForm === 'syrup') {
-                    ibuprofen_result = `Ибупрофен (сироп): ${(ibuprofen_dose / 20).toFixed(2)} мл`;
-                } else if (ibuprofenForm === 'suppository') {
-                    if (ibuprofen_dose <= 60) {
-                        ibuprofen_result = `Ибупрофен (суппозитории): 1 суппозиторий по 60 мг`;
-                    } else if (ibuprofen_dose <= 125) {
-                        ibuprofen_result = `Ибупрофен (суппозитории): 1 суппозиторий по 125 мг`;
-                    } else {
-                        ibuprofen_result = `Ибупрофен (суппозитории): ${(ibuprofen_dose / 125).toFixed(2)} суппозитория(ев) по 125 мг`;
-                    }
-                }
-
-                let age_info = `
-                    <p><strong>Парацетамол:</strong> Разрешен с рождения. Прием до 4 раз в сутки с перерывом не менее 4-6 часов.</p>
-                    <p><strong>Ибупрофен:</strong> Разрешен с 3 месяцев. Прием до 3 раз в сутки с перерывом не менее 6 часов.</p>
-                `;
-
-                document.getElementById('result').innerHTML = `
-                    <h2>Рекомендуемая дозировка:</h2>
-                    <p>${paracetamol_result}</p>
-                    <p>${ibuprofen_result}</p>
-                    ${age_info}
-                `;
-            }
-
-            window.onload = function() {
-                // Если приложение открыто через Telegram
-                if (typeof Telegram !== 'undefined') {
-                    Telegram.WebApp.onEvent('visibilityChanged', function(isVisible) {
-                        if (!isVisible) {
-                            Telegram.WebApp.close();
-                        }
-                    });
-
-                    // Получение информации о пользователе Telegram
-                    let user = Telegram.WebApp.initDataUnsafe.user;
-                    console.log(user); // Используйте эту информацию при необходимости
-                }
-            }
-        </script>
+    <div>
+        <label for="totalSum">Общая сумма:</label>
+        <input type="number" id="totalSum" placeholder="Введите сумму" step="any">
+        
+        <label for="k1">Коэффициент исхода 1 (k1):</label>
+        <input type="number" id="k1" placeholder="Введите k1" step="any">
+        
+        <label for="k2">Коэффициент исхода 2 (k2):</label>
+        <input type="number" id="k2" placeholder="Введите k2" step="any">
+        
+        <button onclick="calculateBets()">Рассчитать</button>
     </div>
+    
+    <div class="result" id="result"></div>
+    
+    <script>
+        function calculateBets() {
+            // Получаем введённые значения
+            var totalSum = parseFloat(document.getElementById("totalSum").value);
+            var k1 = parseFloat(document.getElementById("k1").value);
+            var k2 = parseFloat(document.getElementById("k2").value);
+            
+            // Проверка корректности ввода
+            if (isNaN(totalSum)  isNaN(k1)  isNaN(k2)) {
+                document.getElementById("result").innerHTML = "<p style='color:red;'>Пожалуйста, заполните все поля корректными числами.</p>";
+                return;
+            }
+            if (k1 <= 0.1 || k2 <= 0.1) {
+                document.getElementById("result").innerHTML = "<p style='color:red;'>Коэффициенты должны быть больше 0.1 для корректных расчётов.</p>";
+                return;
+            }
+            
+            // Вычисляем распределение ставок:
+            // Формулы:
+            // y = T * (k1 - 0.1) / (k1 + k2 - 0.2)
+            // x = T * (k2 - 0.1) / (k1 + k2 - 0.2)
+            var denominator = k1 + k2 - 0.2;
+            var y = totalSum * (k1 - 0.1) / denominator;
+            var x = totalSum * (k2 - 0.1) / denominator;
+            
+            // Вычисляем выплаты для обоих исходов
+            // Если выигрывает исход 1: выплата = x * k1 + y * 0.1
+            // Если выигрывает исход 2: выплата = y * k2 + x * 0.1
+            var payout1 = x * k1 + y * 0.1;
+            var payout2 = y * k2 + x * 0.1;
+            
+            var net_profit1 = payout1 - totalSum;
+            var net_profit2 = payout2 - totalSum;
+            // При оптимальном распределении чистый выигрыш должен быть равен, поэтому берём среднее
+            var net_profit = (net_profit1 + net_profit2) / 2;
+            
+            // Форматируем результаты до двух знаков после запятой
+            x = x.toFixed(2);
+            y = y.toFixed(2);
+            net_profit = net_profit.toFixed(2);
+            
+            // Выводим результаты
+            var resultHTML = "<h2>Результаты:</h2>";
+            resultHTML += "<p>Ставка на исход 1: " + x + "</p>";
+            resultHTML += "<p>Ставка на исход 2: " + y + "</p>";
+            resultHTML += "<p>Чистый выигрыш (при любом исходе): " + net_profit + "</p>";
+            
+            document.getElementById("result").innerHTML = resultHTML;
+        }
+    </script>
 </body>
 </html>
